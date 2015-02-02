@@ -1,0 +1,43 @@
+{
+  "name": "grunt-moe-image",
+  "version": "0.1.0",
+  "description": "grunt-moe-image",
+  "main": "tasks/moe-image.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SiqiLu/grunt-moe-image"
+  },
+  "keywords": [
+    "moe",
+    "grunt-moe-image",
+    "grunt",
+    "image"
+  ],
+  "author": "Siqi Lu <lu.siqi@outlook.com> (https://github.com/SiqiLu)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SiqiLu/grunt-moe-image/issues"
+  },
+  "homepage": "https://github.com/SiqiLu/grunt-moe-image",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bump": "^0.1.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-exec": "^0.4.6",
+    "grunt-jscs": "^1.2.0",
+    "load-grunt-tasks": "^3.0.0",
+    "time-grunt": "^1.0.0"
+  },
+  "dependencies": {
+    "MD5": "^1.2.1",
+    "async": "^0.9.0",
+    "chalk": "^0.5.1",
+    "image-size": "^0.3.5",
+    "imagemin": "^3.1.0",
+    "pretty-bytes": "^1.0.2"
+  }
+}
