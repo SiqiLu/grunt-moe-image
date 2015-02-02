@@ -17,7 +17,7 @@ module.exports = function(grunt) {
       interlaced: true,
       optimizationLevel: 5,
       progressive: true,
-      removeSource: true,
+      removeSource: false,
       svgoPlugins: [{
           removeViewBox: false
         }, // don't remove the viewbox atribute from the SVG
@@ -31,60 +31,65 @@ module.exports = function(grunt) {
     });
 
     async.forEachLimit(files, os.cpus().length, function(file, next) {
-      var msg;
-      var imagemin = new Imagemin()
-        .src(file.src[0])
-        .dest(path.dirname(file.dest))
-        .use(Imagemin.jpegtran(options))
-        .use(Imagemin.gifsicle(options))
-        .use(Imagemin.optipng(options))
-        .use(rename())
-        .use(Imagemin.svgo({
-          plugins: options.svgoPlugins || []
-        }));
+        var msg;
+        var imagemin = new Imagemin()
+          .src(file.src[0])
+          .dest(path.dirname(file.dest))
+          .use(Imagemin.jpegtran(options))
+          .use(Imagemin.gifsicle(options))
+          .use(Imagemin.optipng(options))
+          .use(rename())
+          .use(Imagemin.svgo({
+            plugins: options.svgoPlugins || []
+          }));
 
-      fs.stat(file.src[0], function(err, stats) {
-        if (err) {
-          grunt.warn(err + ' in file ' + file.src[0]);
-          return next();
-        }
-
-        imagemin.run(function(err, data) {
+        fs.stat(file.src[0], function(err, stats) {
           if (err) {
             grunt.warn(err + ' in file ' + file.src[0]);
             return next();
           }
 
-          var origSize = stats.size;
-          var diffSize = origSize - data[0].contents.length;
+          imagemin.run(function(err, data) {
+            if (err) {
+              grunt.warn(err + ' in file ' + file.src[0]);
+              return next();
+            }
 
-          totalSaved += diffSize;
+            var origSize = stats.size;
+            var diffSize = origSize - data[0].contents.length;
 
-          if (diffSize < 10) {
-            msg = 'already optimized';
-          } else {
-            msg = [
-              'saved ' + prettyBytes(diffSize) + ' -', (diffSize / origSize * 100).toFixed() + '%'
-            ].join(' ');
-          }
+            totalSaved += diffSize;
 
-          grunt.log.writeln(chalk.green('✔ ') + file.src[0] + chalk.gray(' (' + msg + ')'));
-          process.nextTick(next);
+            if (diffSize < 10) {
+              msg = 'already optimized';
+            } else {
+              msg = [
+                'saved ' + prettyBytes(diffSize) + ' -', (diffSize / origSize * 100).toFixed() + '%'
+              ].join(' ');
+            }
+
+            grunt.log.writeln(chalk.green('✔ ') + file.src[0] + chalk.gray(' (' + msg + ')'));
+
+            if (options.removeSource) {
+              fs.unlinkSync(file.src[0]);
+            }
+            process.nextTick(next);
+          });
         });
+      },
+      function(err) {
+        if (err) {
+          grunt.warn(err);
+        }
+
+        var msg = [
+          'Minified ' + files.length,
+          files.length === 1 ? 'image' : 'images',
+          chalk.gray('(saved ' + prettyBytes(totalSaved) + ')')
+        ].join(' ');
+
+        grunt.log.writeln(msg);
+        done();
       });
-    }, function(err) {
-      if (err) {
-        grunt.warn(err);
-      }
-
-      var msg = [
-        'Minified ' + files.length,
-        files.length === 1 ? 'image' : 'images',
-        chalk.gray('(saved ' + prettyBytes(totalSaved) + ')')
-      ].join(' ');
-
-      grunt.log.writeln(msg);
-      done();
-    });
   });
 };
