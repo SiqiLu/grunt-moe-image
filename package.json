@@ -1,6 +1,6 @@
 {
   "name": "grunt-moe-image",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "grunt-moe-image",
   "main": "tasks/moe-image.js",
   "scripts": {

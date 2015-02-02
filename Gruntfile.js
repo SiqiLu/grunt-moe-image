@@ -109,9 +109,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('js', ['jshint', 'jscs']);
   grunt.registerTask('build', ['clean', 'mimage']);
-  grunt.registerTask('release', ['clean', 'bump', 'exec:npmPublish']);
-  grunt.registerTask('release-minor', ['clean', 'bump:minor', 'exec:npmPublish']);
-  grunt.registerTask('release-major', ['clean', 'bump:major', 'exec:npmPublish']);
+  grunt.registerTask('release', ['exec:npmUpdate', 'clean', 'bump', 'exec:npmPublish']);
+  grunt.registerTask('release-minor', ['exec:npmUpdate', 'bump:minor', 'exec:npmPublish']);
+  grunt.registerTask('release-major', ['exec:npmUpdate', 'bump:major', 'exec:npmPublish']);
 
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
