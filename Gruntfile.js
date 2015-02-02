@@ -53,6 +53,9 @@ module.exports = function(grunt) {
       },
       npmInstall: {
         command: 'npm install'
+      },
+      npmPublish: {
+        command: 'npm publish'
       }
     },
 
@@ -93,7 +96,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'test1/fixtures/',
+          cwd: 'test/fixtures/',
           src: '**/*.{gif,GIF,jpg,JPG,png,PNG}',
           dest: 'tmp/'
         }]
@@ -106,7 +109,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('js', ['jshint', 'jscs']);
   grunt.registerTask('build', ['clean', 'mimage']);
-  grunt.registerTask('release', ['clean', 'bump']);
+  grunt.registerTask('release', ['clean', 'bump', 'exec:npmPublish']);
+  grunt.registerTask('release-minor', ['clean', 'bump:minor', 'exec:npmPublish']);
+  grunt.registerTask('release-major', ['clean', 'bump:major', 'exec:npmPublish']);
 
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
