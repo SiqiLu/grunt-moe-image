@@ -8,8 +8,8 @@ var prettyBytes = require('pretty-bytes');
 var Imagemin = require('imagemin');
 var rename = require('./imageRename.js');
 
-module.exports = function(grunt) {
-  grunt.registerMultiTask('mimage', 'Minify and version PNG, JPEG, GIF and SVG images', function() {
+module.exports = function (grunt) {
+  grunt.registerMultiTask('mimage', 'Minify and version PNG, JPEG, GIF and SVG images', function () {
     var done = this.async();
     var files = this.files;
     var totalSaved = 0;
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
       ]
     });
 
-    async.forEachLimit(files, os.cpus().length, function(file, next) {
+    async.forEachLimit(files, os.cpus().length, function (file, next) {
         var msg;
         var imagemin = new Imagemin()
           .src(file.src[0])
@@ -43,13 +43,13 @@ module.exports = function(grunt) {
             plugins: options.svgoPlugins || []
           }));
 
-        fs.stat(file.src[0], function(err, stats) {
+        fs.stat(file.src[0], function (err, stats) {
           if (err) {
             grunt.warn(err + ' in file ' + file.src[0]);
             return next();
           }
 
-          imagemin.run(function(err, data) {
+          imagemin.run(function (err, data) {
             if (err) {
               grunt.warn(err + ' in file ' + file.src[0]);
               return next();
@@ -77,13 +77,13 @@ module.exports = function(grunt) {
           });
         });
       },
-      function(err) {
+      function (err) {
         if (err) {
           grunt.warn(err);
         }
 
         var msg = [
-          'Minified ' + files.length,
+          '>> Minified ' + files.length,
           files.length === 1 ? 'image' : 'images',
           chalk.gray('(saved ' + prettyBytes(totalSaved) + ')')
         ].join(' ');
