@@ -107,13 +107,13 @@ mimage: {
         removeSource: true,
         svgoPlugins: [{
             removeViewBox: false
-          }, // don't remove the viewbox atribute from the SVG
+          }, 
           {
             removeUselessStrokeAndFill: false
-          }, // don't remove Useless Strokes and Fills
+          }, 
           {
             removeEmptyAttrs: false
-          } // don't remove Empty Attributes from the SVG
+          } 
         ]
       },
       dist: {
