@@ -38,10 +38,11 @@ module.exports = function (grunt) {
           .use(Imagemin.jpegtran(options))
           .use(Imagemin.gifsicle(options))
           .use(Imagemin.optipng(options))
-          .use(rename())
           .use(Imagemin.svgo({
             plugins: options.svgoPlugins || []
-          }));
+          })
+          .use(rename())
+        );
 
         fs.stat(file.src[0], function (err, stats) {
           if (err) {
