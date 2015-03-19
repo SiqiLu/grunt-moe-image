@@ -126,14 +126,3 @@ mimage: {
       }
     }
 ```
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-* 2015-02-02 &emsp; v0.1.0 &emsp; Change version number.
-* 2015-02-02 &emsp; v0.3.0 &emsp; Change version number.
-* 2015-02-02 &emsp; v0.3.1 &emsp; Add "npm publish" command.
-* 2015-02-02 &emsp; v0.3.2 &emsp; Remove clean command and add publish command.
-* 2015-02-02 &emsp; v0.3.3 &emsp; Change version number.
-* 2015-02-02 &emsp; v0.3.4 &emsp; Add default task to registerTask.
