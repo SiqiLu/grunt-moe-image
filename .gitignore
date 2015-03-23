@@ -148,11 +148,8 @@ node_modules/
 #bower_components
 bower_components/
 
-#metronic
-!metronic/
-
-#angulr
-!angulr/
+# moe-bower
+moe_packages/
 
 # =========================
 # Windows detritus
@@ -210,5 +207,8 @@ Thumbs.db
 validation-report.json
 validation-status.json
 
-#debug file
+# tmp directory
+tmp/
+
+# console_dev
 console_dev.js
