@@ -40,9 +40,8 @@ module.exports = function (grunt) {
           .use(Imagemin.optipng(options))
           .use(Imagemin.svgo({
             plugins: options.svgoPlugins || []
-          })
-          .use(rename())
-        );
+          }))
+          .use(rename());
 
         fs.stat(file.src[0], function (err, stats) {
           if (err) {
